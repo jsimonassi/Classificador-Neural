@@ -1,3 +1,5 @@
+import math
+
 import pandas as pd
 import zipfile
 
@@ -11,6 +13,10 @@ class DataReader:
         try:
             with zipfile.ZipFile(self.file_path + ".zip", 'r') as zip_ref:
                 zip_ref.extractall('./DataSet')
-            return pd.read_csv(self.file_path)
+            df = pd.read_csv(self.file_path)
+
+            # Remove linhas sem polaridade definida
+            # droped_data = df.drop(df[(df.polarity != 1.0) & (df.polarity != 0.0)].index)
+            return df
         except FileNotFoundError:
             raise Exception('File not found')

@@ -8,6 +8,7 @@ from sklearn.metrics import confusion_matrix, classification_report, accuracy_sc
 class NeuralNetworkManager:
 
     def __init__(self, x, y, cross_validation=True):
+        """Inicializa o objeto de gerenciamento da rede neural"""
         if cross_validation:
             skf = StratifiedKFold(n_splits=5)
             for train_index, test_index in skf.split(x, y):
@@ -34,14 +35,17 @@ class NeuralNetworkManager:
         self.classifier.fit(self.x_train, self.y_train)
 
     def execute_prediction(self):
+        """Executa a predição com base no classificador instanciado"""
         self.y_pred = self.classifier.predict(self.x_test)
 
     def get_accuracy(self):
+        """Recupera a precisão dos acertos"""
         if self.y_pred is None:
             raise Exception('You must execute prediction before get accuracy')
         return accuracy_score(self.y_test, self.y_pred)
 
     def get_confusion_matrix(self):
+        """Recupera a matriz de confusão"""
         if self.y_pred is None:
             raise Exception('You must execute prediction before get confusion matrix')
         return confusion_matrix(self.y_test, self.y_pred)

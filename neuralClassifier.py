@@ -11,10 +11,11 @@ import matplotlib.pyplot as plt
 # Coluna de polaridade da tabela de dataset
 POLARITY_COLUMN = 4
 # Número de linhas que serão lidas do arquivo csv
-LINES_TO_READ = 5000
+LINES_TO_READ = 500
 
 
 def plot_confusion_matrix(conf_matrix):
+    """Desenha a matriz de confusão"""
     df_cm = pd.DataFrame(conf_matrix, range(len(conf_matrix)), range(len(conf_matrix[0])))
     sn.set(font_scale=1.4)  # for label size
     sn.heatmap(df_cm, annot=True, annot_kws={"size": 16})  # font size
@@ -48,7 +49,9 @@ if __name__ == '__main__':
     my_network = NeuralNetworkManager(x, y, cross_validation=True)
 
     # Treina a rede neural
-    my_network.train_classifier_with_logistic_regression()
+    # my_network.train_classifier_with_logistic_regression()
+    my_network.train_classifier_with_naive_bayes()
+    # my_network.train_classifier_with_decision_tree()
 
     # Executa a predição
     my_network.execute_prediction()

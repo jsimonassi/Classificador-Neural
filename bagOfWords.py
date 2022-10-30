@@ -6,6 +6,7 @@ class BagOfWords:
 
     @staticmethod
     def get_xy_data(dataset, processed_data, polarity_column, lines_to_read):
+        """Cria o modelo de bag of words e retorna os eixos x e y da matriz de dados"""
         matrix = CountVectorizer(max_features=1000)
         x = matrix.fit_transform(processed_data).toarray()
         y = dataset.iloc[:lines_to_read, polarity_column]
